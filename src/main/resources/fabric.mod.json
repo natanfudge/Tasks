@@ -1,37 +1,37 @@
 {
   "schemaVersion": 1,
-  "id": "modid",
+  "id": "tasks",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Tasks",
+  "description": "Allows creating tasks for mods",
   "authors": [
-    "Me!"
+    "Fudge!"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://github.com/natanfudge/Tasks",
+    "sources": "https://github.com/natanfudge/Tasks"
   },
 
-  "license": "CC0-1.0",
+  "license": "MIT",
   "icon": "assets/modid/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.fabricmc.example.ExampleModKt::init"
+      "fudge.tasks.TasksKt::init"
+    ],
+    "client": [
+      "fudge.tasks.TasksClientKt::initClient"
     ]
   },
   "mixins": [
-    "modid.mixins.json"
+    "tasks.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.7.1",
     "fabric": "*",
     "fabric-language-kotlin": "*",
-    "minecraft": "1.15.x"
-  },
-  "suggests": {
-    "flamingo": "*"
+    "minecraft": "1.16.x"
   }
 }

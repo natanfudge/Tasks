@@ -1,11 +1,11 @@
 {
   "required": true,
-  "package": "net.fabricmc.example.mixin",
+  "package": "fudge.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-  ],
-  "client": [
-    "ExampleMixin"
+    "BlockMixin",
+    "MainMixin",
+    "MinecraftClientMixin"
   ],
   "injectors": {
     "defaultRequire": 1
