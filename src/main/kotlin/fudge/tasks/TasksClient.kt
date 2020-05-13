@@ -3,13 +3,16 @@ package fudge.tasks
 //fun initClient(){}
 
 import fabricktx.api.KotlinKeyBinding
-import fabricktx.api.initClientOnly
+//import fabricktx.api.initClientOnly
 import fudge.mixinHandlers.Events
 import fudge.mixinHandlers.invoke
 import fudge.tasks.gui.*
+import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.client.MinecraftClient
 import net.minecraft.client.util.InputUtil
+import net.minecraft.server.MinecraftServer
 import net.minecraft.util.Identifier
 import org.lwjgl.glfw.GLFW
 
@@ -33,11 +36,17 @@ val refreshKey = KotlinKeyBinding.create(
 
 
 
-fun initClient() = initClientOnly(Tasks.ModId) {
+fun initClient() {
     println("Tasks initializing!")
-    if (FabricLoader.getInstance().isDevelopmentEnvironment) registerKeyBinding(refreshKey)
+    if (FabricLoader.getInstance().isDevelopmentEnvironment){
+        KeyBindingRegistry.INSTANCE.register(refreshKey)
+    }
+//        registerKeyBinding(refreshKey)
     Events.OnWindowReady {
         initDrawing(gui())
+
+        MinecraftClient.getInstance().startIntegratedServer("Demo_World", MinecraftServer.DEMO_LEVEL_INFO)
+//        MinecraftClient.getInstance().
     }
 
     Events.OnResolutionChanged {

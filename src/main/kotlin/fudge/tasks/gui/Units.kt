@@ -47,24 +47,65 @@ data class Rect(
 
 }
 
+//data class Constraints(
+//    val minWidth: Int,
+//    val maxWidth: Int,
+//    val minHeight: Int,
+//    val maxHeight: Int
+//) {
+//    init {
+//        require(minWidth <= maxWidth)
+//        require(minHeight <= maxHeight)
+//    }
+//
+//    companion object {
+//        /**
+//         * Creates constraints for fixed size in both dimensions.
+//         */
+//        fun fixed(width: Int, height: Int) = Constraints(width, width, height, height)
+//
+//        /**
+//         * Creates constraints for fixed width and unspecified height.
+//         */
+//        fun fixedWidth(width: Int) = Constraints(
+//            minWidth = width,
+//            maxWidth = width,
+//            minHeight = 0,
+//            maxHeight = Int.MAX_VALUE
+//        )
+//
+//        /**
+//         * Creates constraints for fixed height and unspecified width.
+//         */
+//        fun fixedHeight(height: Int) = Constraints(
+//            minWidth = 0,
+//            maxWidth = Int.MAX_VALUE,
+//            minHeight = height,
+//            maxHeight = height
+//        )
+//    }
+//}
+
 fun Rect.getSize() = Size(height = height, width = width)
 val Rect.width get() = right - left
 val Rect.height get() = bottom - top
 
 
-data class Size(val height: Int, val width: Int){
-    companion object{
-        val Zero = Size(0,0)
-        val Infinity = Size(Int.MAX_VALUE,Int.MAX_VALUE)
+data class Size(val height: Int, val width: Int) {
+    companion object {
+        val Zero = Size(0, 0)
+        val Infinity = Size(Int.MAX_VALUE, Int.MAX_VALUE)
     }
 }
-data class IntPos(val left: Int, val top: Int){
-    companion object{
-        val Origin = IntPos(0,0)
+
+data class IntPos(val left: Int, val top: Int) {
+    companion object {
+        val Origin = IntPos(0, 0)
     }
 }
-data class FloatPos(val left: Float, val top: Float){
-    companion object{
-        val Origin = FloatPos(0f,0f)
+
+data class FloatPos(val left: Float, val top: Float) {
+    companion object {
+        val Origin = FloatPos(0f, 0f)
     }
 }

@@ -21,6 +21,13 @@ repositories {
     maven {
         url  "https://dl.bintray.com/natanfudge/libs"
     }
+    maven {
+        url = "https://jitpack.io"
+        metadataSources {
+            mavenPom()
+            artifact()
+        }
+    }
 }
 
 dependencies {
@@ -30,11 +37,22 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
     // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+//    modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"){
+////        exclude()
+//    }
 
-    modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
+    modImplementation ("net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"){
+        exclude group : "net.fabricmc.fabric-api"
+    }
 
-    modImplementation("com.lettuce.fudge:fabric-ktx:$fabric_ktx_version")
+//    modImplementation("com.lettuce.fudge:fabric-ktx:$fabric_ktx_version"){
+//        exclude group : "net.fabricmc.fabric-api"
+//    }
+
+    modRuntime ("com.github.SuperCoder7979:databreaker:c8c5bc06b8") {
+        exclude module : "fabric-loader"
+        exclude group : "net.fabricmc.fabric-api"
+    }
 
 
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.

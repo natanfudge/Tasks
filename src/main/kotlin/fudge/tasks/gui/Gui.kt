@@ -1,6 +1,7 @@
 package fudge.tasks.gui
 
 import fudge.tasks.ScreenUtils
+import fudge.tasks.gui.compose.LayoutDirection
 
 
 class ComponentManager(private val component: Component) {
@@ -8,7 +9,9 @@ class ComponentManager(private val component: Component) {
 
     private fun createRoot(): Element {
         val result = component.getLayout()
-            .layout(Rect(left = 0,top = 0, right = ScreenUtils.width, bottom = ScreenUtils.height))
+            .layout(
+                layoutDirection = LayoutDirection.Ltr,
+                bounds = Rect(left = 0,top = 0, right = ScreenUtils.width, bottom = ScreenUtils.height))
 
         println("ROOT ELEMENT: " + result.toReadableString())
 
