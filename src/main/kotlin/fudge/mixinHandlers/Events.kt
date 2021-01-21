@@ -1,5 +1,6 @@
 package fudge.mixinHandlers
 
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback
 import net.fabricmc.fabric.api.event.Event
 import net.fabricmc.fabric.impl.base.event.EventFactoryImpl
 import net.minecraft.entity.player.PlayerEntity
@@ -23,10 +24,10 @@ operator fun<T> Event<T>.invoke(listener : T)= register(listener)
 
 
 object Events {
-
-
     val OnWindowReady = noArgs()
     val OnResolutionChanged = noArgs()
+    val OnHudRender: Event<HudRenderCallback> =     HudRenderCallback.EVENT
+
 
     val OnBlockBroken = event<(World, PlayerEntity) -> Unit> { listeners ->
         { world, player ->

@@ -26,8 +26,7 @@
     ]
   },
   "mixins": [
-    "tasks.mixins.json",
-    "fabric.mixins.json"
+    "tasks.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.7.1",

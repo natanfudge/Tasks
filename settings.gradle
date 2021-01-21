@@ -5,6 +5,7 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven { url = "https://maven.pkg.jetbrains.space/public/p/compose/dev" }
         gradlePluginPortal()
     }
 
