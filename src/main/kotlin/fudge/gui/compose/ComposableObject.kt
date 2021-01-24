@@ -1,16 +1,21 @@
-package fudge.gui
+package fudge.gui.compose
+
+import fudge.gui.*
+import fudge.gui.drawing.RenderModifier
+import fudge.gui.layout.LayoutModifier
+import fudge.gui.layout.SizeModifier
 
 
-data class ComposableObject internal constructor(internal var modifier: Modifier, internal val debugName: String) {
+internal data class ComposableObject internal constructor(internal var modifier: Modifier, internal val debugName: String) {
     var parent: ComposableObject? = null
 
-    internal val renderCallbacks = modifier.toList().filterIsInstance<RenderModifier>()
-    internal val layoutModifier = modifier.toList().filterIsInstance<LayoutModifier>().lastOrNull()
-    internal val sizeModifier = modifier.toList().filterIsInstance<SizeModifier>().firstOrNull() ?: SizeModifier.Default
+     val renderCallbacks = modifier.toList().filterIsInstance<RenderModifier>()
+     val layoutModifier = modifier.toList().filterIsInstance<LayoutModifier>().lastOrNull()
+     val sizeModifier = modifier.toList().filterIsInstance<SizeModifier>().firstOrNull() ?: SizeModifier.Default
 
     override fun toString(): String = debugName
 
-    internal val children: MutableList<ComposableObject> = mutableListOf()
+     val children: MutableList<ComposableObject> = mutableListOf()
 
     fun insertAt(index: Int, instance: ComposableObject) {
         children.add(index, instance)
@@ -45,12 +50,5 @@ data class ComposableObject internal constructor(internal var modifier: Modifier
             instance.parent = null
         }
     }
-
-//    internal fun toConsoleTree(depth: Int = 0): String {
-//        return " ".repeat(depth) + "{$debugName}" +
-//                if (children.isNotEmpty()) ": [\n" + children.joinToString(",\n") { it.toConsoleTree(depth + 1) } + "\n" + " ".repeat(
-//                    depth
-//                ) + "]"
-//                else ""
 }
 

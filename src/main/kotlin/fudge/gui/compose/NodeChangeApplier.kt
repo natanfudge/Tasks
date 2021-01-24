@@ -1,9 +1,11 @@
+package fudge.gui.compose
+
 import androidx.compose.runtime.AbstractApplier
 import androidx.compose.runtime.ExperimentalComposeApi
-import fudge.gui.ComposableObject
+import fudge.gui.compose.ComposableObject
 
 @OptIn(ExperimentalComposeApi::class)
-class NodeChangeApplier(
+internal class NodeChangeApplier(
     root: ComposableObject,
     private val onChange: () -> Unit
 ) : AbstractApplier<ComposableObject>(root) {
