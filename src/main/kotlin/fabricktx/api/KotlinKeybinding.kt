@@ -2,6 +2,7 @@ package fabricktx.api
 
 import net.fabricmc.fabric.api.client.keybinding.FabricKeyBinding
 import net.minecraft.client.MinecraftClient
+import net.minecraft.client.options.KeyBinding
 import net.minecraft.client.util.InputUtil
 import net.minecraft.util.Identifier
 import org.lwjgl.glfw.GLFW
@@ -32,7 +33,7 @@ class KotlinKeyBindingBuilder @PublishedApi internal constructor(private val id:
 
 class KotlinKeyBinding(id: Identifier, code: Int, type: InputUtil.Type, category: String,
                        private val onPressStart: ClientCallback?, private val onReleased: ClientCallback?)
-    : FabricKeyBinding(id, type, code, category) {
+    : KeyBinding("key.${id.namespace}.${id.path}", type, code, category) {
 
     //////////////// API ////////////////
     companion object {

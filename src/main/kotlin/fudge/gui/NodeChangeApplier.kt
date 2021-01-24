@@ -1,16 +1,17 @@
 import androidx.compose.runtime.AbstractApplier
 import androidx.compose.runtime.ExperimentalComposeApi
+import fudge.gui.ComposableObject
 
 @OptIn(ExperimentalComposeApi::class)
 class NodeChangeApplier(
-    root: NodeObject,
+    root: ComposableObject,
     private val onChange: () -> Unit
-) : AbstractApplier<NodeObject>(root) {
-    override fun insertBottomUp(index: Int, instance: NodeObject) {
+) : AbstractApplier<ComposableObject>(root) {
+    override fun insertBottomUp(index: Int, instance: ComposableObject) {
         current.insertAt(index, instance)
     }
 
-    override fun insertTopDown(index: Int, instance: NodeObject) {
+    override fun insertTopDown(index: Int, instance: ComposableObject) {
         // ignored. Building tree bottom-up
     }
 

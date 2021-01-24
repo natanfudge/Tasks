@@ -6,6 +6,17 @@ interface Modifier {
 
     companion object : Modifier {
         override fun <R> fold(acc: R, operation: (R, Modifier) -> R): R = acc
+        fun fromList(modifiers: List<Modifier>): Modifier {
+            if (modifiers.isEmpty()) return Modifier
+            return fromList(modifiers, 0)
+        }
+
+        private fun fromList(modifiers: List<Modifier>, index: Int): Modifier {
+            val currentModifier = modifiers[index]
+            return if (index < modifiers.size - 1) {
+                currentModifier wrap fromList(modifiers, index + 1)
+            } else currentModifier
+        }
     }
 }
 

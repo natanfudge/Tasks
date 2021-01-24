@@ -1,24 +1,23 @@
 package fudge.gui
 
-import NodeObject
-import net.minecraft.client.font.TextRenderer
-import net.minecraft.client.util.math.MatrixStack
-
 fun interface RenderModifier : Modifier {
     fun RenderContext.render()
 }
 
-class RenderContext(val textRenderer: TextRenderer,val matrices: MatrixStack) {
-
-}
+data class Size(val width: Int, val height: Int)
+class RenderContext(val canvas: Canvas, val size: Size)
 
 fun Modifier.draw(render: RenderContext.() -> Unit) = this wrap RenderModifier(render)
 
-internal fun render(root: NodeObject, renderContext: RenderContext) {
-    for (renderer in root.renderCallbacks) {
+
+internal fun render(placeable: Placeable, canvas: Canvas) {
+    canvas.translate(placeable.constraints.x, placeable.constraints.y)
+    val renderContext = RenderContext(canvas, Size(placeable.constraints.width, placeable.constraints.height))
+    for (renderer in placeable.node.renderCallbacks) {
         with(renderer) {
             renderContext.render()
         }
     }
-    for(child in root.children) render(child,renderContext)
+    canvas.translate(-placeable.constraints.x, -placeable.constraints.y)
+    for (child in placeable.children) render(child, canvas)
 }

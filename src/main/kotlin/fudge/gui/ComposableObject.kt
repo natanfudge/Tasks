@@ -1,17 +1,18 @@
-import fudge.gui.Modifier
-import fudge.gui.RenderModifier
-import fudge.gui.toList
+package fudge.gui
 
-data class NodeObject internal constructor(
-    private val modifier : Modifier
-) {
-    var parent: NodeObject? = null
+
+data class ComposableObject internal constructor(internal var modifier: Modifier, internal val debugName: String) {
+    var parent: ComposableObject? = null
 
     internal val renderCallbacks = modifier.toList().filterIsInstance<RenderModifier>()
+    internal val layoutModifier = modifier.toList().filterIsInstance<LayoutModifier>().lastOrNull()
+    internal val sizeModifier = modifier.toList().filterIsInstance<SizeModifier>().firstOrNull() ?: SizeModifier.Default
 
-    internal val children: MutableList<NodeObject> = mutableListOf()
+    override fun toString(): String = debugName
 
-    fun insertAt(index: Int, instance: NodeObject) {
+    internal val children: MutableList<ComposableObject> = mutableListOf()
+
+    fun insertAt(index: Int, instance: ComposableObject) {
         children.add(index, instance)
         instance.parent = this
     }
@@ -46,10 +47,10 @@ data class NodeObject internal constructor(
     }
 
 //    internal fun toConsoleTree(depth: Int = 0): String {
-//        return " ".repeat(depth) + "{$tag}" +
+//        return " ".repeat(depth) + "{$debugName}" +
 //                if (children.isNotEmpty()) ": [\n" + children.joinToString(",\n") { it.toConsoleTree(depth + 1) } + "\n" + " ".repeat(
 //                    depth
 //                ) + "]"
 //                else ""
-    }
+}
 
