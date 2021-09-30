@@ -54,7 +54,7 @@ fun Modifier.size(debugName: String? = null, callback: SizeModifierCallback) =
 fun Modifier.layout(layoutFunc: LayoutModifierCallback) =
     this wrap object : LayoutModifier() {
     override fun layoutChildren(childrenSizes: List<NodeSize>, constraints: Rect): List<Rect> =
-        layoutFunc(childrenSizes, constraints)
+        layoutFunc(childrenSizes, constraints).map { it.constrain(constraints) }
 }
 
 fun Modifier.draw(render: DrawContext.() -> Unit) = this wrap RenderModifier(render)
@@ -68,5 +68,5 @@ fun Modifier.positionChildren(layoutFunc: (childrenSizes: List<NodeSize>, constr
         require(positions.size == childrenSizes.size) {
             "A position must be supplied for all ${childrenSizes.size} children, but only ${positions.size} were supplied instead!"
         }
-        positions.zip(childrenSizes).map { (pos, size) -> Rect(pos.x, pos.y, size.minWidth, size.minHeight).constrain(constraints) }
+        positions.zip(childrenSizes).map { (pos, size) -> Rect(pos.x, pos.y, size.minWidth, size.minHeight)/*.constrain(constraints)*/ }
     }

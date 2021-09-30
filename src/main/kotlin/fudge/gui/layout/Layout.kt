@@ -13,7 +13,7 @@ internal object Layouts {
                 0,
                 childSize.minWidth,
                 childSize.minHeight
-            ).constrain(screenConstraints)
+            )/*.constrain(screenConstraints)*/
         )
     }
 }

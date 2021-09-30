@@ -12,7 +12,7 @@ import fudge.gui.toList
 fun Node(
     debugName: String,
     modifier: Modifier = Modifier,
-    children: @Composable() () -> Unit = @Composable {},
+    children: @Composable() () -> Unit ,
 ) {
     val wrapperModifiers = modifier.unwrapWrapperModifiers()
     emitWrapperModifiers(debugName, modifier, children, wrapperModifiers, 0)

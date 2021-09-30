@@ -21,6 +21,7 @@ private fun noArgs() = event<() -> Unit> { listeners ->
 }
 
 private val subscribedHudListeners = mutableListOf<HudRenderFunction>()
+private var subscribedToHud = false
 
 
 operator fun <T> Event<T>.invoke(listener: T) = register(listener)
@@ -28,7 +29,8 @@ operator fun <T> Event<T>.invoke(listener: T) = register(listener)
 typealias HudRenderFunction = (MatrixStack, Float) -> Unit
 
 operator fun Event<HudRenderCallback>.invoke(listener: HudRenderFunction): HudRenderFunction {
-    if (subscribedHudListeners.isEmpty()) {
+    if (!subscribedToHud) {
+        subscribedToHud = true
         register { stack, delta ->
             for (existingListener in subscribedHudListeners) {
                 existingListener(stack, delta)

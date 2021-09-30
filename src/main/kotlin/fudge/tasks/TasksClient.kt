@@ -30,11 +30,11 @@ val refreshKey = KotlinKeyBinding.create(
 }
 
 val toggleDebugKey = KotlinKeyBinding.create(
-    id = Identifier("fabricated-ui","debug-borders"),
+    id = Identifier("fabricated-ui", "debug-borders"),
     type = InputUtil.Type.KEYSYM,
     category = "fabricated-ui-key-category",
     key = GLFW.GLFW_KEY_O
-){
+) {
     onReleased {
         FabricateDebug.toggleBorders()
     }
@@ -63,16 +63,17 @@ fun initClient() {
 
 private fun drawGui() {
     FabricateUi.compose {
-//        TextElement("hello", Color.White, Modifier.padding(3))
-        BoxElement(
-            Color.Black.withOpacity(127),
-            Modifier
-                .fillMaxSize()
-                .align(Align.TopRight)
-                .padding(3)
-                .size(100,150)
+        stack(Modifier.padding(3).fillMaxSize().align(Align.TopLeft)) {
+            box(
+                Color.Black.withOpacity(127),
+                Modifier.size(100, 150)
+            )
+            column {
+                text("hello", Color.White, Modifier.padding(3))
+                text("hello2", Color.White, Modifier.padding(3))
+            }
+        }
 
-        )
     }
 }
 
